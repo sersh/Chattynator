@@ -17,10 +17,11 @@ jobs:
       - name: Create zip
         run: |
           mkdir -p out
-          zip -r out/Chattynator.zip . \
-            --exclude "*.git*" \
-            --exclude ".github/*" \
-            --exclude "out/*"
+          cd ..
+          zip -r Chattynator/out/Chattynator.zip Chattynator/ \
+            --exclude "Chattynator/.git/*" \
+            --exclude "Chattynator/.github/*" \
+            --exclude "Chattynator/out/*"
 
       - name: Upload release
         uses: softprops/action-gh-release@v2
