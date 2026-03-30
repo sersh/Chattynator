@@ -1,18 +1,20 @@
 name: Release
-
 on:
   push:
     tags:
       - 'v*'
-
 permissions:
   contents: write
-
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
+      - name: Set version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          sed -i "s/@project-version@/$TAG/" Chattynator.toc
 
       - name: Create zip
         run: |
