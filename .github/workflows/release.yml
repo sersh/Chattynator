@@ -18,9 +18,10 @@ jobs:
 
       - name: Create zip
         run: |
+          TAG=${GITHUB_REF#refs/tags/}
           mkdir -p out
           cd ..
-          zip -r Chattynator/out/Chattynator.zip Chattynator/ \
+          zip -r Chattynator/out/Chattynator-$TAG.zip Chattynator/ \
             --exclude "Chattynator/.git/*" \
             --exclude "Chattynator/.github/*" \
             --exclude "Chattynator/out/*"
@@ -28,4 +29,4 @@ jobs:
       - name: Upload release
         uses: softprops/action-gh-release@v2
         with:
-          files: out/Chattynator.zip
+          files: out/Chattynator-*.zip
