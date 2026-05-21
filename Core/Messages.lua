@@ -818,7 +818,7 @@ function addonTable.MessagesMonitorMixin:GetFont() -- Compatibility with any emo
 end
 
 function addonTable.MessagesMonitorMixin:AddMessage(text, r, g, b, _, _, _, _, _, Formatter)
-  if (not issecretvalue or not issecretvalue(text)) and text == "" or type(text) ~= "string" then
+  if (not issecretvalue or not issecretvalue(text)) and (text == "" or text == CHAT_INVALID_NAME_NOTICE) or type(text) ~= "string" then
     if not self.lockType then
       self.incomingType = nil
     end
@@ -1306,9 +1306,9 @@ function addonTable.MessagesMonitorMixin:MessageEventHandler(event, ...)
         return;
       end
 
-      local showLink = 1;
+      local showLink = true;
       if ( strsub(type, 1, 7) == "MONSTER" or strsub(type, 1, 9) == "RAID_BOSS") then
-        showLink = nil;
+        showLink = false;
       elseif C_StringUtil and C_StringUtil.EscapeLuaFormatString then
         msg = C_StringUtil.EscapeLuaFormatString(msg)
       else
